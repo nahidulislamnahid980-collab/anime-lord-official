@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Maybe One Day</title>
+<style>
+:root{--bg:#07070b;--panel:#111016;--text:#eeeaf2;--muted:#99939f;--line:#ffffff12}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);background:radial-gradient(circle at 50% 10%,#25202d 0,transparent 30%),linear-gradient(#07070b,#0b0a0f 55%,#050507);font-family:system-ui,-apple-system,Segoe UI,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:linear-gradient(#fff1 1px,transparent 1px),linear-gradient(90deg,#fff1 1px,transparent 1px);background-size:70px 70px;mask-image:linear-gradient(#000,transparent 80%)}
+.wrap{width:min(900px,calc(100% - 32px));margin:auto}
+header{position:fixed;top:0;left:0;right:0;z-index:5;padding:18px 0;background:#07070bcc;backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;justify-content:space-between}.brand,.status{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase}.brand{color:var(--text);text-decoration:none}.status{color:#625d68}
+.hero{min-height:100vh;display:grid;place-items:center;text-align:center;padding:90px 0}.eyebrow{color:#66616c;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:28px}
+h1{font-size:clamp(3.5rem,12vw,8rem);line-height:.88;letter-spacing:-.07em;margin:0;font-weight:650}.lead{max-width:650px;margin:30px auto 0;color:var(--muted);font-size:clamp(1rem,2vw,1.2rem);line-height:1.9}.scroll{display:inline-block;margin-top:55px;color:#77717d;text-decoration:none;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;animation:breathe 3s infinite}
+@keyframes breathe{50%{transform:translateY(6px);opacity:.5}}
+section{padding:100px 0}.card{border:1px solid var(--line);background:#111016cc;border-radius:26px;padding:clamp(28px,6vw,58px);box-shadow:0 30px 90px #0007;backdrop-filter:blur(14px)}
+.quote{font-size:clamp(1.5rem,4vw,2.5rem);line-height:1.4;letter-spacing:-.02em;margin:0}.story{color:var(--muted);line-height:1.95}.divider{width:50px;height:1px;background:#aaa4af55;margin:36px 0}
+.memory{padding:22px;border-left:1px solid #fff2;background:#ffffff05;margin:14px 0;border-radius:0 14px 14px 0}.memory small{display:block;color:#625d68;text-transform:uppercase;letter-spacing:.18em;font-size:.64rem;margin-bottom:8px}.memory p{margin:0;color:#aaa4af;line-height:1.75}
+.final{text-align:center;padding:130px 0}.final h2{font-size:clamp(2.5rem,8vw,5.5rem);letter-spacing:-.06em;margin:0}.final p{max-width:600px;margin:24px auto;color:var(--muted);line-height:1.9}
+footer{text-align:center;border-top:1px solid var(--line);padding:28px;color:#625d68;font-size:.7rem}
+.reveal{opacity:0;transform:translateY(20px);animation:rise .9s forwards}.d1{animation-delay:.15s}.d2{animation-delay:.3s}@keyframes rise{to{opacity:1;transform:none}}
+@media(max-width:600px){.status{display:none}.wrap{width:calc(100% - 22px)}section{padding:70px 0}.card{padding:26px;border-radius:20px}.hero{padding-top:90px}}
+</style>
+
+<style id="memorial-upgrade">
+:root{
+  --gold:#b7a88c;
+  --gold-soft:#8e826f;
+  --paper:#d8d2c8;
+}
+body{
+  background:
+    radial-gradient(circle at 50% 12%,rgba(183,168,140,.13),transparent 25rem),
+    linear-gradient(180deg,#060609 0%,#0b0a0d 45%,#050507 100%)!important;
+}
+body:after{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:999;
+  background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.48) 100%);
+}
+.hero{
+  position:relative;
+  min-height:100vh!important;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  width:460px;height:460px;
+  border:1px solid rgba(183,168,140,.12);
+  border-radius:50%;
+  box-shadow:0 0 100px rgba(183,168,140,.05),inset 0 0 80px rgba(183,168,140,.03);
+  animation:slow-breathe 7s ease-in-out infinite;
+}
+@keyframes slow-breathe{
+  0%,100%{transform:scale(.96);opacity:.45}
+  50%{transform:scale(1.04);opacity:1}
+}
+.eyebrow{
+  color:var(--gold-soft)!important;
+}
+h1{
+  color:#f0ece5!important;
+  text-shadow:0 0 50px rgba(183,168,140,.09)!important;
+}
+.lead{
+  color:#aaa5ae!important;
+}
+.card{
+  background:linear-gradient(145deg,rgba(22,20,25,.9),rgba(10,10,14,.82))!important;
+  border-color:rgba(183,168,140,.13)!important;
+}
+.quote{
+  color:#e6e0d7!important;
+}
+.story{
+  color:#aaa5ad!important;
+}
+.divider{
+  background:linear-gradient(90deg,var(--gold-soft),transparent)!important;
+}
+.memory{
+  border-left:1px solid rgba(183,168,140,.25)!important;
+  background:linear-gradient(90deg,rgba(183,168,140,.045),transparent)!important;
+}
+.memory small{
+  color:var(--gold-soft)!important;
+}
+.memory p{
+  color:#aaa5ad!important;
+}
+.final{
+  position:relative;
+}
+.final:before{
+  content:"✦";
+  display:block;
+  color:var(--gold-soft);
+  opacity:.55;
+  font-size:1rem;
+  margin-bottom:30px;
+}
+.final h2{
+  color:#e8e2d9!important;
+}
+.final p{
+  color:#9d98a1!important;
+}
+footer{
+  color:#5f5b63!important;
+}
+
+/* Memorial-style memory line */
+#letter:after{
+  content:"2026  •  A STORY THAT WAS DREAMED";
+  display:block;
+  text-align:center;
+  margin:70px auto 0;
+  color:#4f4b54;
+  font-size:.62rem;
+  letter-spacing:.22em;
+}
+
+/* Gentle fade between memories */
+.memory{
+  opacity:0;
+  transform:translateY(18px);
+  animation:memory-in .8s ease forwards;
+}
+.memory:nth-child(2){animation-delay:.18s}
+.memory:nth-child(3){animation-delay:.36s}
+@keyframes memory-in{to{opacity:1;transform:none}}
+
+@media(max-width:600px){
+  .hero:before{width:280px;height:280px}
+  #letter:after{font-size:.52rem;letter-spacing:.14em}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap nav"><a class="brand" href="#">A STORY AT REST</a><span class="status">No ending written yet</span></div></header>
+<main>
+<section class="hero"><div>
+<div class="eyebrow reveal">A quiet goodbye</div>
+<h1 class="reveal d1">Maybe one day.</h1>
+<p class="lead reveal d2">Sometimes a story doesn't end because it wasn't good enough. Sometimes the person telling it just needs to step away.</p>
+<a class="scroll" href="#letter">read on ↓</a>
+</div></section>
+<section id="letter"><div class="wrap"><div class="card">
+<p class="quote">“I put a lot of time, ideas, and memories into this.”</p>
+<div class="divider"></div>
+<p class="story">This project meant something to me. It grew into characters, scenes, worlds, edits, and plans for a much bigger story. For now, I'm leaving it here.</p>
+<p class="story">Not because someone else decided it wasn't worth making. I just need to step away from it.</p>
+</div></div></section>
+<section><div class="wrap">
+<div class="memory"><small>What remains</small><p>The ideas are still here. The characters are still here. The work is still here.</p></div>
+<div class="memory"><small>No promises</small><p>Maybe I'll return someday. Maybe I'll create something completely different.</p></div>
+<div class="memory"><small>And that's okay</small><p>A project can be unfinished and still be important. It can be a memory of something I once dreamed about making.</p></div>
+</div></section>
+<section class="final"><div class="wrap"><h2>Maybe I'll come back.</h2><p>Maybe years from now I'll open these files again and remember why I started. Maybe I'll continue the story. Maybe I'll leave it exactly where it is.</p><p>Either way, I’m glad I created it.</p><p style="margin-top:42px!important;color:#716a72!important;font-size:.78rem!important;letter-spacing:.08em">Thank you to everyone who watched, supported, or simply stopped by.</p></div></section>
+</main>
+<footer>A story can rest without being forgotten.</footer>
+
+<script id="memorial-upgrade-js">
+(() => {
+  const title = document.title;
+  let hidden = false;
+  document.addEventListener("visibilitychange", () => {
+    if(document.hidden){
+      document.title = "Maybe one day.";
+      hidden = true;
+    }else if(hidden){
+      document.title = title;
+      hidden = false;
+    }
+  });
+})();
+</script>
+</body></html>

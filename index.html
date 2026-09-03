@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PLAYFORM — Roblox Game Hub</title>
+<style>
+:root{--bg:#070b12;--panel:#0c121b;--panel2:#121b28;--line:#202b39;--text:#f4f7fb;--muted:#8996a7;--blue:#20a9ff;--blue2:#167bd0;--green:#4ade80}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 18% 0,#172638 0,#0a0f17 42%,#05070b 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}.shell{max-width:1420px;margin:48px auto;padding:0 20px}.app{min-height:820px;height:min(900px,calc(100vh - 96px));display:grid;grid-template-columns:210px minmax(0,1fr) 285px;overflow:hidden;border:1px solid #273240;border-radius:22px;background:#080c13;box-shadow:0 28px 80px rgba(0,0,0,.5)}
+.sidebar{padding:28px 12px;background:linear-gradient(180deg,#090f18,#070a10);border-right:1px solid #17202c;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:9px;padding:0 14px 34px;font-size:20px;font-weight:900;letter-spacing:-.7px}.brand-mark{width:28px;height:24px;border-radius:6px;background:linear-gradient(135deg,#28c3ff,#176bd4);position:relative;box-shadow:0 0 22px rgba(32,169,255,.35)}.brand-mark:before{content:"";position:absolute;inset:5px;border:2px solid #c8efff;border-radius:2px}.nav{display:grid;gap:8px}.nav a{padding:13px 14px;border-radius:8px;text-decoration:none;color:#aeb9c8;font-weight:750;font-size:14px;display:flex;gap:12px;align-items:center;transition:.18s}.nav a:hover,.nav a.active{background:#171f2b;color:#fff}.ico{width:18px;text-align:center}.profile{margin-top:auto;padding:18px 10px 0;border-top:1px solid #18212d;display:flex;align-items:center;gap:10px}.profilepic{width:42px;height:42px;border-radius:8px;background:linear-gradient(135deg,#ffcc9f,#684033);display:grid;place-items:center;font-size:18px}.profile b{font-size:12px;display:block}.profile small{font-size:10px;color:var(--muted)}
+.main{padding:20px 28px;overflow:auto}.topbar{display:flex;align-items:center;gap:10px;margin-bottom:16px}.crumb{background:#121b27;border:1px solid #202b38;padding:8px 12px;border-radius:6px;font-size:12px;color:#9eabb9}.crumb:first-child{color:#fff}.search-mobile{margin-left:auto;display:none}.hero{height:455px;border-radius:10px;overflow:hidden;position:relative;border:1px solid #202c39;background:#111923}.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(.78) saturate(1.08);transform:scale(1.01)}.hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,9,14,.97) 0%,rgba(5,9,14,.78) 36%,rgba(5,9,14,.24) 73%,rgba(5,9,14,.35)),linear-gradient(180deg,transparent 55%,rgba(5,8,12,.9))}.hero-content{position:absolute;left:38px;bottom:38px;max-width:550px;z-index:2}.eyebrow{font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:#b9c6d5}.hero h1{font-size:52px;line-height:.92;margin:9px 0 16px;font-weight:950;letter-spacing:-1px}.hero h1 span{color:#35b8ff}.hero p{font-size:14px;line-height:1.6;color:#d1d9e2;margin:0 0 24px;max-width:470px}.actions{display:flex;gap:10px}.btn{border:0;border-radius:6px;padding:14px 20px;background:#202a36;color:#fff;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.btn.primary{background:linear-gradient(90deg,var(--blue2),var(--blue));box-shadow:0 10px 25px rgba(32,169,255,.2)}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin:26px 0 16px}.section-title h2{font-size:23px;margin:0}.arrows{display:flex;gap:8px}.arrow{width:36px;height:36px;display:grid;place-items:center;border:1px solid #27313d;background:#151d28;border-radius:6px;color:#b6c1ce}.games{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.card{min-width:0;background:#0c1119;border:1px solid #182331;border-radius:8px;overflow:hidden;transition:.2s}.card:hover{transform:translateY(-3px);border-color:#2b3a4b}.game-image{height:175px;width:100%;object-fit:cover;display:block;background:#151d28}.card-body{padding:12px}.card h3{font-size:15px;margin:0 0 6px}.card p{font-size:11px;color:#909cad;line-height:1.45;margin:0 0 12px;height:32px;overflow:hidden}.play-link{display:inline-flex;align-items:center;gap:6px;padding:8px 11px;border-radius:5px;background:#176fc0;color:#fff;font-size:12px;font-weight:850;text-decoration:none}.badge{font-size:9px;color:#7fd2ff;background:#102b3c;border:1px solid #1d4b65;border-radius:99px;padding:4px 7px;display:inline-block;margin-left:6px}
+.right{padding:22px 14px;background:#090d14;border-left:1px solid #17202c;overflow:auto}.search{height:43px;display:flex;align-items:center;gap:9px;padding:0 13px;background:#101721;border:1px solid #1d2733;border-radius:7px;color:#788596;font-size:13px;margin-bottom:20px}.friends-title{font-size:14px;margin:0 0 13px}.friend{display:flex;align-items:center;gap:10px;padding:9px 3px}.friendpic{width:44px;height:44px;border-radius:5px;display:grid;place-items:center;background:#1b2430;font-size:19px}.friend b{font-size:12px;display:block}.status{font-size:10px;color:#8794a3;margin-top:5px}.tag{font-size:9px;font-weight:850;border-radius:3px;padding:4px 6px;background:#173b56;color:#69c4ff}.tag.play{background:#f1f3f4;color:#1e242b}.about{margin-top:22px;padding-top:18px;border-top:1px solid #18212c;color:#788595;font-size:11px;line-height:1.55}
+.empty-img{display:grid;place-items:center;color:#8fa0b3;background:#111923;font-size:12px}.loading{opacity:.8}
+@media(max-width:1100px){.app{grid-template-columns:76px minmax(0,1fr)}.right{display:none}.sidebar{align-items:center}.brand{font-size:0;padding-inline:0}.nav a{font-size:0;padding:14px}.nav a .ico{font-size:18px;width:auto}.profile{padding-inline:0}.profile>div:last-child{display:none}.games{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.shell{margin:0;padding:0}.app{height:auto;min-height:100vh;border-radius:0;border:0;display:block}.sidebar{display:none}.main{padding:14px}.topbar{overflow:auto;white-space:nowrap}.hero{height:420px}.hero-content{left:22px;bottom:26px;right:20px}.hero h1{font-size:38px}.hero p{font-size:13px}.games{grid-template-columns:1fr 1fr;gap:12px}.game-image{height:130px}.card-body{padding:10px}.card p{display:none}.card h3{font-size:13px}.section-title h2{font-size:20px}.right{display:none}}
+</style>
+</head>
+<body>
+<div class="shell"><div class="app">
+<aside class="sidebar">
+  <div class="brand"><span class="brand-mark"></span>PLAYFORM</div>
+  <nav class="nav">
+    <a class="active" href="#home"><span class="ico">⌂</span>Home</a>
+    <a href="#trending"><span class="ico">✦</span>Trending</a>
+    <a href="#popular"><span class="ico">▣</span>Popular</a>
+    <a href="#friends"><span class="ico">♟</span>Friends</a>
+    <a href="#library"><span class="ico">▤</span>My Library</a>
+    <a href="#favorites"><span class="ico">♡</span>Favorites</a>
+  </nav>
+  <div class="profile"><div class="profilepic">🎮</div><div><b>Jaden Joy</b><small>Roblox player</small></div></div>
+</aside>
+<main class="main" id="home">
+  <div class="topbar"><div class="crumb">Discover</div><div class="crumb">Roblox Games</div><div class="crumb">Recommended</div></div>
+  <section class="hero">
+    <img class="hero-img" src="assets/roblox-hero.jpg" alt="Featured game artwork">
+    <div class="hero-shade"></div>
+    <div class="hero-content">
+      <div class="eyebrow">Featured Roblox game</div>
+      <h1>GROW A <span>GARDEN</span></h1>
+      <p>Plant seeds, grow your garden, collect rare finds, and play with friends. This is a Roblox game hub — not a shop.</p>
+      <div class="actions"><a class="btn primary" href="https://www.roblox.com/games/126884695634066/Grow-a-Garden" target="_blank" rel="noopener">▶ Play on Roblox</a><a class="btn" href="#trending">Explore games</a></div>
+    </div>
+  </section>
+  <section id="trending"><div class="section-title"><h2>Trending Roblox games</h2><div class="arrows"><div class="arrow">‹</div><div class="arrow">›</div></div></div><div class="games" id="gameGrid"></div></section>
+  <section id="popular"><div class="section-title"><h2>More to try</h2></div><div class="games" id="moreGrid"></div></section>
+</main>
+<aside class="right" id="friends">
+  <div class="search">⌕ <span>Search games</span></div><h3 class="friends-title">Friends</h3>
+  <div class="friend"><div class="friendpic">🦊</div><div><b>CrimsonRaven7</b><div class="status"><span class="tag">ONLINE</span></div></div></div>
+  <div class="friend"><div class="friendpic">🧢</div><div><b>SkyRogue</b><div class="status"><span class="tag play">PLAYING</span> Blox Fruits</div></div></div>
+  <div class="friend"><div class="friendpic">🐱</div><div><b>Northstar</b><div class="status"><span class="tag">ONLINE</span></div></div></div>
+  <div class="friend"><div class="friendpic">🤖</div><div><b>Jupiter_Orbit</b><div class="status"><span class="tag play">PLAYING</span> MM2</div></div></div>
+  <div class="friend"><div class="friendpic">🌙</div><div><b>Nova_Wisp</b><div class="status">Away</div></div></div>
+  <div class="about">Images are bundled locally with this website, so they display when you open the ZIP without needing GitHub or an internet connection.</div>
+</aside>
+</div></div>
+<script>
+const games=[
+  {id:126884695634066,name:'Grow a Garden',image:'assets/grow-a-garden.jpg',desc:'Grow crops, collect rare finds, and build your dream garden.'},
+  {id:2753915549,name:'Blox Fruits',image:'assets/blox-fruits.jpg',desc:'Sail, train, battle enemies, and search for powerful fruits.'},
+  {id:4924922222,name:'Brookhaven 🏡RP',image:'assets/brookhaven.jpg',desc:'Roleplay, explore the city, build a life, and hang out with friends.'},
+  {id:16360367895,name:'Dress To Impress',image:'assets/dress-to-impress.jpg',desc:'Create themed outfits and compete on the fashion runway.'},
+  {id:142823291,name:'Murder Mystery 2',image:'assets/murder-mystery-2.jpg',desc:'Solve the mystery, survive the round, and find the murderer.'},
+  {id:83226640573679,name:'Steal a Brainrot',image:'assets/steal-a-brainrot.jpg',desc:'Collect characters, build up your base, and play with others.'}
+];
+function card(g){return `<article class="card"><img class="game-image" src="${g.image}" alt="Game artwork for ${g.name}"><div class="card-body"><h3>${g.name}<span class="badge">ROBLOX</span></h3><p>${g.desc}</p><a class="play-link" href="https://www.roblox.com/games/${g.id}" target="_blank" rel="noopener">▶ Play</a></div></article>`}
+document.getElementById('gameGrid').innerHTML=games.slice(0,3).map(card).join('');
+document.getElementById('moreGrid').innerHTML=games.slice(3).map(card).join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CASE//ZERO — Detective Academy</title>
+<style>
+:root{--bg:#060b14;--panel:#0d1726;--panel2:#111f32;--cyan:#53e7ff;--cyan2:#0ab5d4;--text:#e9f7ff;--muted:#8da8bb;--danger:#ff557d;--good:#62f5a4;--line:#20384d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#10263a 0,#060b14 45%);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif;min-height:100vh}button{font:inherit;cursor:pointer}button:disabled{cursor:not-allowed;opacity:.45}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 5%;border-bottom:1px solid var(--line);background:#07101bd9;backdrop-filter:blur(12px);position:sticky;top:0;z-index:5}.logo{font-weight:900;letter-spacing:3px;color:var(--cyan)}.header-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--cyan2);background:#0b2637;color:var(--text);padding:10px 14px;border-radius:10px}.btn:hover{background:#123e53}.btn.primary{background:var(--cyan);color:#03101a;font-weight:800}
+main{width:min(1180px,90%);margin:35px auto}.hero{padding:35px 0}.eyebrow{color:var(--cyan);letter-spacing:4px;font-size:12px;font-weight:800}.hero h1{font-size:clamp(38px,7vw,78px);line-height:.95;margin:14px 0}.hero p{color:var(--muted);max-width:650px;font-size:16px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:25px 0}.stat,.case-card,.modal-box,.panel{background:linear-gradient(145deg,#102033,#0b1422);border:1px solid var(--line);border-radius:16px;padding:18px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:25px;color:var(--cyan);margin-top:5px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:25px 0 14px}.section-head h2{margin:0}.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.case-card{position:relative;min-height:190px;display:flex;flex-direction:column;gap:9px}.case-card.locked{filter:grayscale(.8);opacity:.55}.case-number{font-size:11px;color:var(--cyan);letter-spacing:2px}.case-card h3{margin:0;font-size:20px}.case-card p{margin:0;color:var(--muted);font-size:13px}.case-meta{display:flex;justify-content:space-between;color:#b9d4e5;font-size:12px;margin-top:auto}.case-card .btn{margin-top:7px;width:100%}
+.overlay{display:none;position:fixed;inset:0;background:#02060deF;z-index:20;overflow:auto;padding:20px}.overlay.active{display:block}.investigation{width:min(1050px,100%);margin:0 auto}.invest-head{display:flex;justify-content:space-between;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding:12px 0 20px}.timer{font-size:25px;color:var(--cyan);font-weight:900}.timer.danger{color:var(--danger)}.bar{height:9px;background:#152536;border-radius:99px;overflow:hidden;margin:16px 0}.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan2),var(--cyan));transition:width .2s}.invest-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:15px}.panel h3{margin-top:0;color:var(--cyan)}.evidence{display:grid;gap:10px}.evidence button{text-align:left;background:#0b1828;border:1px solid #244157;color:var(--text);padding:12px;border-radius:10px}.evidence button.seen{border-color:var(--good);background:#0d2927}.question{padding:13px 0;border-bottom:1px solid var(--line)}.question:last-child{border:0}.question p{margin-top:0}.question label{display:block;color:var(--muted);margin:8px 0}.theories{display:grid;gap:10px}.theory-option{text-align:left;padding:14px;border-radius:11px;border:1px solid #2a4c62;background:#0b1828;color:var(--text)}.theory-option:hover:not(:disabled){border-color:var(--cyan);background:#123247}.bottom-actions{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:18px 0}.hint{color:var(--muted);font-size:12px}
+.modal-box{width:min(480px,100%);margin:12vh auto;text-align:center}.modal-box h2{font-size:32px;margin:8px 0;color:var(--cyan)}.modal-box p{color:var(--muted);line-height:1.6}.modal-box.success h2{color:var(--good)}.modal-box.failure h2{color:var(--danger)}
+.rank-list{display:grid;gap:8px;text-align:left;max-height:55vh;overflow:auto}.rank-row{display:flex;justify-content:space-between;gap:10px;border:1px solid var(--line);padding:10px;border-radius:8px}.rank-row strong{color:var(--cyan)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#112b3c;border:1px solid var(--cyan);padding:12px 18px;border-radius:10px;display:none;z-index:50}.toast.show{display:block}
+@media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}.case-grid{grid-template-columns:repeat(2,1fr)}.invest-grid{grid-template-columns:1fr}}
+@media(max-width:520px){main{width:94%}.case-grid{grid-template-columns:1fr}.hero{padding:20px 0}.stat{padding:13px}.stat strong{font-size:20px}header{padding:14px 3%}.logo{font-size:13px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">CASE//ZERO</div>
+  <div class="header-actions">
+    <button class="btn" onclick="openRanks()">RANKS & POWERS</button>
+    <button class="btn" onclick="toggleMute()" id="muteBtn">🔊</button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="eyebrow">OFFLINE DETECTIVE ACADEMY</div>
+  <h1>THINK.<br>TRACE.<br>SOLVE.</h1>
+  <p>Fifty layered investigations. Every clue matters, contradictions are intentional, and ten minutes is all you get. Your conclusion must be earned—not guessed.</p>
+</section>
+
+<section class="stats">
+  <div class="stat"><small>EXPERIENCE</small><strong id="xp">0 XP</strong></div>
+  <div class="stat"><small>CASES SOLVED</small><strong id="solved">0 / 50</strong></div>
+  <div class="stat"><small>CURRENT RANK</small><strong id="rank">ROOKIE</strong></div>
+  <div class="stat"><small>FOUNDER STATUS</small><strong id="founder">UNVERIFIED</strong></div>
+</section>
+
+<div class="section-head"><h2>CASE FILES</h2><span class="hint">Complete each case to unlock the next</span></div>
+<div class="case-grid" id="caseGrid"></div>
+</main>
+
+<div class="overlay" id="investigationOverlay">
+ <div class="investigation">
+  <div class="invest-head">
+    <div><div class="eyebrow" id="investCaseNo">CASE-001</div><h2 id="investTitle">Case</h2><div class="hint" id="investCountry"></div></div>
+    <div><div class="timer" id="timer">10:00</div><div class="hint">TIME REMAINING</div></div>
+  </div>
+  <div class="bar"><span id="progressBar"></span></div>
+  <div class="hint" id="progressText">Investigation progress: 0%</div>
+  <div class="invest-grid">
+   <section class="panel"><h3>01 / EVIDENCE BOARD</h3><p class="hint">Inspect every clue carefully. Some clues are misleading; compare timestamps, access, and physical evidence.</p><div class="evidence" id="evidenceList"></div></section>
+   <section class="panel"><h3>02 / ANALYSIS</h3><div id="questions"></div></section>
+  </div>
+  <section class="panel" style="margin-top:15px"><h3>03 / FINAL THEORY</h3><p class="hint">You have one submission. A wrong answer fails the case. Look for contradictions before committing.</p><div class="theories" id="theories"></div></section>
+  <div class="bottom-actions"><span class="hint">Powers reset every case. Use them wisely.</span><button class="btn" onclick="closeInvestigation()">ABORT INVESTIGATION</button></div>
+ </div>
+</div>
+
+<div class="overlay" id="resultOverlay"><div class="modal-box" id="resultBox"><div class="eyebrow">INVESTIGATION REPORT</div><h2 id="resultTitle"></h2><p id="resultMessage"></p><button class="btn primary" id="resultButton"></button></div></div>
+<div class="overlay" id="rankOverlay"><div class="modal-box"><div class="eyebrow">ACADEMY DATABASE</div><h2>RANKS & POWERS</h2><div class="rank-list" id="rankList"></div><br><button class="btn" onclick="closeRanks()">CLOSE</button></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const FOUNDER_ID="CZ-FND-001";
+const ranks=[
+["ROOKIE",0],["CADET",50],["JUNIOR DETECTIVE",100],["DETECTIVE",200],["SENIOR DETECTIVE",350],
+["INVESTIGATOR",500],["SENIOR INVESTIGATOR",750],["EXPERT",1000],["ELITE EXPERT",1500],
+["MASTER",2500],["MASTER DETECTIVE",5000],["GRANDMASTER",10000],["SUPREME DETECTIVE",20000],
+["LEGEND",35000],["DETECTIVE LEGEND",50000],["ULTIMATE ONE",100000],["ULTIMATE DETECTIVE",250000],
+["TRANSCENDENT",500000],["TOP 1",1000000],["ARCHDETECTIVE",Infinity]
+];
+const powers=["INSPECT","HINT","FOCUS","SUSPECT SCAN","TIME FREEZE","CONNECT","ELIMINATE","DEEP INSPECT","LOGIC CHECK","TIMELINE TRACE","ALIBI CHECK","PATTERN VISION","EVIDENCE TRACE","DEDUCTION","ULTIMATE INSIGHT","MASTER TRACE","ZERO VISION","FOUNDER'S EYE"];
+const countries=["Bangladesh","Japan","United States","United Kingdom","India","South Korea","Canada","Australia","France","Germany","Italy","Spain","Brazil","Mexico","Argentina","South Africa","Egypt","Türkiye","Saudi Arabia","United Arab Emirates","Singapore","Malaysia","Indonesia","Thailand","Vietnam","Philippines","Nepal","Bhutan","Pakistan","Sri Lanka","New Zealand","Norway","Sweden","Finland","Iceland","Switzerland","Netherlands","Belgium","Greece","Portugal","Ireland","Poland","Czechia","Austria","Hungary","Kenya","Nigeria","Morocco","Ghana","Peru"];
+const names=["Silent Room","Midnight Platform","Locked Gallery","Missing Manuscript","Vanishing Ticket","Last Broadcast","Frozen Timestamp","Outback Signal","Empty Atelier","Clockwork Alibi","Venetian Key","Midnight Archive","Carnival Cipher","Museum Shadow","Buenos Aires Ledger","Observatory Code","Desert Compass","Bosphorus Signal","Silent Caravan","Glass Tower","Missing Minute","Rainy-Day Cipher","Island Frequency","Floating Clue","Lantern Code","Harbor Riddle","Mountain Message","Hidden Bell","Rooftop Timeline","Tea Estate Mystery","Lighthouse Log","Northern Signal","Snowbound File","Silent Train","Missing Hour","Precision Alibi","Canal Cipher","Chocolate Ledger","Island Witness","Azulejo Clue","Green Notebook","Broken Clock","Prague Cipher","Concert Alibi","Danube File","Safari Timestamp","Lagos Signal","Market Code","Golden Clue","Mountain Archive"];
+const templates=[
+ {answer:1,clues:["The access panel records a valid badge at 21:14, but the badge owner was logged in another building at 21:10.","Fine dust remains undisturbed across the window ledge, while the inner latch is open.","A maintenance cart appears on camera three minutes before the alarm, with its serial number partly obscured.","The alarm report was edited six minutes after the incident, although the system normally locks reports immediately."],questions:["Which clue creates the strongest contradiction in the original timeline?","What independent record should be compared with the access log?"]},
+ {answer:1,clues:["The station clock displays 23:07, but its synchronization log shows it lost power at 22:58.","The ticket printer produced a ticket whose serial number belongs to a batch issued after the alleged departure.","A camera outage lasted exactly 42 seconds, but the backup camera shows movement during that interval.","A staff member reports hearing the platform announcement before the train was listed as arriving."],questions:["Which evidence should be treated as unreliable until calibrated?","Which detail suggests the reported sequence was rearranged?"]},
+ {answer:1,clues:["A sealed display case was opened with an authorized override rather than broken.","The gallery humidity record contains a five-minute gap during the claimed theft window.","A reflection in the security glass shows a second person outside the camera's main frame.","The inventory sheet was signed using a pen that was stored inside the locked curator's office."],questions:["Which clue distinguishes access from forced entry?","What evidence could connect the signature to a specific time?"]}
+];
+const cases=names.map((name,i)=>{
+ const t=templates[i%templates.length];
+ const xp=100+Math.floor(i/5)*50;
+ return {id:i+1,name,country:countries[i],difficulty:i<10?"HARD":i<30?"EXPERT":"NIGHTMARE",xp,answer:t.answer,
+ clues:t.clues.map((c,j)=>c.replace("room",i%2?"platform":"room")),
+ questions:t.questions,
+ theories:["A random accident explains every clue.","An authorized person manipulated the situation.","The evidence proves an impossible event."],
+};
+});
+let xp=Number(localStorage.getItem("cz_xp")||0);
+let failedLocks=JSON.parse(localStorage.getItem("cz_failedLocks")||"{}");
+const LOCK_DURATION=10*60*1000;
+let solvedCases=JSON.parse(localStorage.getItem("cz_solved")||"[]");
+let founder=localStorage.getItem("cz_founder")||"";
+let currentCase=null,currentIndex=-1,timeLeft=600,timerId=null,endTime=0,freezeUntil=0,seen=new Set(),theorySubmitted=false,caseFailed=false,muted=false;
+
+function save(){localStorage.setItem("cz_xp",xp);localStorage.setItem("cz_solved",JSON.stringify(solvedCases));localStorage.setItem("cz_failedLocks",JSON.stringify(failedLocks));}
+function lockRemaining(id){return Math.max(0,(failedLocks[id]||0)-Date.now())}
+function formatCooldown(ms){let sec=Math.ceil(ms/1000),m=Math.floor(sec/60),s=sec%60;return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
+function getRank(){if(founder===FOUNDER_ID)return "ARCHDETECTIVE";let r="ROOKIE";for(const x of ranks){if(x[1]!==Infinity&&xp>=x[1])r=x[0]}return r}
+function updateStats(){document.getElementById("xp").textContent=xp+" XP";document.getElementById("solved").textContent=solvedCases.length+" / 50";document.getElementById("rank").textContent=getRank();document.getElementById("founder").textContent=founder===FOUNDER_ID?"VERIFIED":"UNVERIFIED"}
+function renderCases(){const grid=document.getElementById("caseGrid");grid.innerHTML="";cases.forEach((c,i)=>{const solved=solvedCases.includes(c.id);const remaining=lockRemaining(c.id);const locked=remaining>0;const card=document.createElement("article");card.className="case-card"+(locked?" locked":"");const label=locked?"🔒 LOCKED "+formatCooldown(remaining):solved?"SOLVED ✓":"START CASE";card.innerHTML=`<div class="case-number">CASE-${String(c.id).padStart(3,"0")}</div><h3>${c.name}</h3><p>${c.country} · Fictional investigation</p><div class="case-meta"><span>${c.difficulty}</span><span>+${c.xp} XP</span></div><button class="btn ${!locked?"primary":""}" ${locked?"disabled":""}>${label}</button>`;card.querySelector("button").onclick=()=>startCase(i);grid.appendChild(card)})}
+function startCase(i){if(lockRemaining(cases[i].id)>0){toast("This case is locked for "+formatCooldown(lockRemaining(cases[i].id))+".");return;}currentIndex=i;currentCase=cases[i];timeLeft=600;freezeUntil=0;seen=new Set();theorySubmitted=false;caseFailed=false;document.getElementById("investigationOverlay").classList.add("active");renderInvestigation();startTimer();beep(440,.08)}
+function renderInvestigation(){document.getElementById("investCaseNo").textContent="CASE-"+String(currentCase.id).padStart(3,"0");document.getElementById("investTitle").textContent=currentCase.name;document.getElementById("investCountry").textContent=currentCase.country+" · "+currentCase.difficulty+" · "+currentCase.xp+" XP";document.getElementById("evidenceList").innerHTML=currentCase.clues.map((c,i)=>`<button id="clue${i}" onclick="inspectClue(${i})">CLUE ${i+1}: ${c}</button>`).join("");document.getElementById("questions").innerHTML=currentCase.questions.map((q,i)=>`<div class="question"><p>${q}</p><label><input type="radio" name="q${i}"> Observation A</label><label><input type="radio" name="q${i}"> Observation B</label><label><input type="radio" name="q${i}"> Need more evidence</label></div>`).join("");document.getElementById("theories").innerHTML=currentCase.theories.map((t,i)=>`<button class="theory-option" onclick="submitTheory(${i})">THEORY ${String.fromCharCode(65+i)} — ${t}</button>`).join("");updateProgress()}
+function inspectClue(i){if(theorySubmitted||caseFailed)return;seen.add(i);document.getElementById("clue"+i).classList.add("seen");updateProgress();beep(600,.05)}
+function updateProgress(){let p=Math.round(seen.size/currentCase.clues.length*70);document.getElementById("progressBar").style.width=p+"%";document.getElementById("progressText").textContent="Investigation progress: "+p+"%"}
+function startTimer(){stopTimer();endTime=Date.now()+600000;timerId=setInterval(updateTimer,250);updateTimer()}
+function stopTimer(){if(timerId){clearInterval(timerId);timerId=null}}
+function updateTimer(){if(!currentCase)return;let remaining=Math.max(0,endTime-Date.now());if(Date.now()<freezeUntil)remaining=Math.max(0,endTime-Date.now()+(freezeUntil-Date.now()));timeLeft=Math.ceil(remaining/1000);let m=Math.floor(timeLeft/60),s=timeLeft%60;const el=document.getElementById("timer");el.textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");el.classList.toggle("danger",timeLeft<=60);if(timeLeft<=0&&!theorySubmitted&&!caseFailed)failCase("TIME EXPIRED","The timer reached zero. Your investigation must restart.");}
+function submitTheory(index){if(theorySubmitted||caseFailed)return;if(seen.size<currentCase.clues.length){showToast("Inspect every clue before submitting.");return;}theorySubmitted=true;document.querySelectorAll(".theory-option").forEach(b=>{b.disabled=true;b.style.pointerEvents="none"});if(index===currentCase.answer){stopTimer();if(!solvedCases.includes(currentCase.id)){solvedCases.push(currentCase.id);xp+=currentCase.xp;}failedLocks[currentCase.id]=Date.now()+LOCK_DURATION;save();updateStats();renderCases();showResult("CASE SOLVED","Your conclusion matches the available evidence. This case is now locked for 10 minutes.","success",()=>closeInvestigation())}else{failCase("CASE FAILED","Your theory was rejected. The case is locked until you restart the investigation.");}}
+function showToast(message){const t=document.getElementById("toast");t.textContent=message;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200)}
+function failCase(title,message){caseFailed=true;theorySubmitted=true;stopTimer();failedLocks[currentCase.id]=Date.now()+LOCK_DURATION;save();renderCases();document.querySelectorAll(".theory-option").forEach(b=>{b.disabled=true;b.style.pointerEvents="none"});showResult(title,message+" You cannot retry this case for 10 minutes.","failure",()=>closeInvestigation())}
+function showResult(title,message,type,action){const overlay=document.getElementById("resultOverlay"),box=document.getElementById("resultBox");box.className="modal-box "+type;document.getElementById("resultTitle").textContent=title;document.getElementById("resultMessage").textContent=message;const btn=document.getElementById("resultButton");btn.textContent=type==="success"?"CONTINUE":"RETRY CASE";btn.onclick=()=>{overlay.classList.remove("active");action()};overlay.classList.add("active");if(type==="failure")beep(150,.2);else beep(800,.1)}
+function restartCase(){if(currentIndex<0)return;startCase(currentIndex)}
+function closeInvestigation(){stopTimer();currentCase=null;currentIndex=-1;document.getElementById("investigationOverlay").classList.remove("active")}
+function openRanks(){document.getElementById("rankList").innerHTML=ranks.map(r=>`<div class="rank-row"><span>${r[0]}</span><strong>${r[1]===Infinity?"FOUNDER ID":r[1].toLocaleString()+" XP"}</strong></div>`).join("")+`<br><div class="hint">Powers unlock progressively by rank. Founder ID unlocks all powers locally.</div>`;document.getElementById("rankOverlay").classList.add("active")}
+function closeRanks(){document.getElementById("rankOverlay").classList.remove("active")}
+function toggleMute(){muted=!muted;document.getElementById("muteBtn").textContent=muted?"🔇":"🔊"}
+function toast(message){const t=document.getElementById("toast");t.textContent=message;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)}
+let audioCtx=null;
+function beep(freq,duration){if(muted)return;try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.frequency.value=freq;g.gain.value=.025;o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+duration)}catch(e){}}
+updateStats();renderCases();setInterval(()=>{renderCases()},1000);
+</script>
+</body>
+</html>
